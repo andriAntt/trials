@@ -1,0 +1,26 @@
+.userRowContainer {
+	display: flex;
+	justify-content: space-between;
+	padding: 24px 0;
+}
+
+.userRowInviteInfo {
+	color: #828b97;
+}
+
+.userRowUserInfo {
+	color: #3e4959;
+}
+
+.userRowControlContainer {
+	display: flex;
+	align-items: center;
+}
+
+.userRowControlContainer > div {
+	background-color: #eeeff2;
+	border-radius: 24px;
+	line-height: 20px;
+	padding: 1px 10px;
+	margin-right: 16px;
+}
