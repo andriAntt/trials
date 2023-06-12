@@ -15,19 +15,19 @@ const UsersPage: FC = () => {
 	const standardUsers = data.filter((el) => el.role === "Standard");
 
 	useEffect(() => {
-		async function fetch() {
+		(async function fetch() {
 			try {
 				Promise.allSettled([Users.getInvites(), Users.getUsers()]).then(
 					(data) => {
 						const resolvedData = (
 							data.filter((res) => "value" in res) as Array<
-								| PromiseFulfilledResult<Invite[]>
+								PromiseFulfilledResult<Invite[]>
 								| PromiseFulfilledResult<TeamMember[]>
 							>
 						)
 							.map((res) => res.value)
 							.reduce((a, b) => {
-								return a.concat(b);
+								return [...a, ...b];
 							}, [] as (TeamMember | Invite)[]);
 						const rejectedData = (
 							data.filter(
@@ -45,8 +45,7 @@ const UsersPage: FC = () => {
 			} finally {
 				setLoading(false);
 			}
-		}
-		fetch();
+		})();
 	}, []);
 
 	if (loading) return <Loader />;

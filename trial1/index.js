@@ -1,24 +1,14 @@
 function get(obj, path, defaultValue) {
-	if (typeof path !== "string" && typeof path !== "number") return defaultValue;
+	if (typeof path !== "string" && typeof path !== "number" || !path) return defaultValue;
 
 	let keysArr = [];
 
-	path
-		.toString()
-		.split(".")
-		.forEach((item) => {
-			item.split(/\[([^}]+)\]/g).forEach(function (key) {
-				if (key.length > 0) {
-					keysArr.push(key);
-				}
-			});
-		});
+	path.toString().split(".").forEach((item) => keysArr.push(item));
 
 	let current = obj;
 
 	for (let i = 0; i < keysArr.length; i++) {
 		if (current[keysArr[i]] === undefined) return defaultValue;
-
 		current = current[keysArr[i]];
 	}
 

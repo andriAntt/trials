@@ -4,7 +4,7 @@ import SVG from "react-inlinesvg";
 
 import { Invite, Role, TeamMember } from "../../types";
 import { IconAdminUser, IconStandardUser } from "../../assets/icons";
-import UserRow from "./components/UserRow";
+import UserRow from "../UserRow";
 
 interface UserListProps {
 	title: Role;
@@ -14,7 +14,7 @@ interface UserListProps {
 const UserList: FC<UserListProps> = ({ title, data }) => {
 	return (
 		<div className="userListContainer">
-			<div className="userListTitleContainer">
+			<div className="userListHeader">
 				<SVG
 					src={title === "Administrator" ? IconAdminUser : IconStandardUser}
 				/>
@@ -22,11 +22,11 @@ const UserList: FC<UserListProps> = ({ title, data }) => {
 					{title === "Administrator" ? "Administrators" : "Standard Users"}
 				</span>
 			</div>
-			<ul className="userListList">
-				{!data.length && <span className="userListEmpty">Still Empty.</span>}
-				{data.map((el) => (
+			<ul className="userList">
+				{data.length ? data.map((el) => (
 					<UserRow key={el.id} userData={el} />
-				))}
+				))
+				: <span className="userListEmpty">Still Empty.</span>}
 			</ul>
 		</div>
 	);

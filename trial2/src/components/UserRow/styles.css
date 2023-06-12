@@ -12,12 +12,12 @@
 	color: #3e4959;
 }
 
-.userRowControlContainer {
+.userRowControl {
 	display: flex;
 	align-items: center;
 }
 
-.userRowControlContainer > div {
+.userRowControl > div {
 	background-color: #eeeff2;
 	border-radius: 24px;
 	line-height: 20px;

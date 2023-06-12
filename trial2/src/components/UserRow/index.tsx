@@ -1,9 +1,9 @@
 import "./styles.css";
 import { FC } from "react";
 import SVG from "react-inlinesvg";
+import { Invite, TeamMember } from "../../types";
+import { IconChevron } from "../../assets/icons";
 
-import { Invite, TeamMember } from "../../../../types";
-import { IconChevron } from "../../../../assets/icons";
 
 interface UserRowProps {
 	userData: TeamMember | Invite;
@@ -21,7 +21,7 @@ const UserRow: FC<UserRowProps> = ({ userData }) => {
 			<span className={isInvited ? "userRowInviteInfo" : "userRowUserInfo"}>
 				{generalInfo}
 			</span>
-			<div className="userRowControlContainer">
+			<div className="userRowControl">
 				{isInvited && (
 					<div>
 						<span>Invited</span>
