@@ -13,33 +13,20 @@ const UsersPage: FC = () => {
 
 	const admins = data.filter((el) => el.role === "Administrator");
 	const standardUsers = data.filter((el) => el.role === "Standard");
-
+		
 	useEffect(() => {
-		(async function fetch() {
+		(async function fetch(): Promise<void> {
+			const arr: Array<TeamMember | Invite> = [];
 			try {
-				Promise.allSettled([Users.getInvites(), Users.getUsers()]).then(
-					(data) => {
-						const resolvedData = (
-							data.filter((res) => "value" in res) as Array<
-								PromiseFulfilledResult<Invite[]>
-								| PromiseFulfilledResult<TeamMember[]>
-							>
-						)
-							.map((res) => res.value)
-							.reduce((a, b) => {
-								return [...a, ...b];
-							}, [] as (TeamMember | Invite)[]);
-						const rejectedData = (
-							data.filter(
-								(res) => "reason" in res
-							) as Array<PromiseRejectedResult>
-						).map((res) => res.reason);
-
-						setData((prevState) => [...prevState, ...resolvedData]);
-
-						if (rejectedData.length) throw new Error(rejectedData.join(";"));
+				const results = await Promise.allSettled([Users.getInvites(), Users.getUsers()]);
+				for (const result of results) {
+					if (result.status === 'fulfilled') {
+						arr.push(...result.value)
+					} else {
+						throw new Error(result.reason.join(";"))
 					}
-				);
+				  }
+				  setData(arr)
 			} catch (e) {
 				console.log(e);
 			} finally {
