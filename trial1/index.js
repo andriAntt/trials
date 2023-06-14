@@ -1,10 +1,7 @@
 function get(obj, path, defaultValue) {
 	if (typeof path !== "string" && typeof path !== "number" || !path) return defaultValue;
 
-	let keysArr = [];
-
-	path.toString().split(".").forEach((item) => keysArr.push(item));
-
+	let keysArr = path.toString().split(".");
 	let current = obj;
 
 	for (let i = 0; i < keysArr.length; i++) {
